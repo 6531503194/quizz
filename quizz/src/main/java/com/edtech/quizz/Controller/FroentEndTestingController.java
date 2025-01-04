@@ -12,10 +12,10 @@ public class FroentEndTestingController {
         return "home";
     }
 
-    @GetMapping("/learning_zone")
-    public String learningZone(){
-        return "learning_zone";
-    }
+    // @GetMapping("/learning_zone")
+    // public String learningZone(){
+    //     return "learning_zone";
+    // }
 
     @GetMapping("/card")
     public String cardList(){

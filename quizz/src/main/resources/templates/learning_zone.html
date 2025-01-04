@@ -62,14 +62,14 @@
         <!-- <h2 class="content-title">Unlock Project Management Skills with Flashcards!</h2> -->
         <div class="phase-div swiper mySwiper">
             <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <a href="/card" id="phase-link">
+                <div class="swiper-slide" th:each="phase : ${phases}">
+                    <a th:href="@{'/learning/' + ${phase.phaseId}}" id="phase-link">
                         <div class="phase-1">
                             <div class="pic-box">
                                 <img src="images/space_man.png" alt="Initiation">
                             </div>
-                            <span class="phase-name">Initiation</span>
-                            <span class="phase-desc">
+                            <span class="phase-name" th:text="${phase.phaseName}">Initiation</span>
+                            <span class="phase-desc" th:text="${phase.description}">
                                 Set the foundation for project success by defining objectives, 
                                 identifying key stakeholders, and developing a project charter 
                                 to authorize the project.
@@ -77,6 +77,7 @@
                         </div>
                     </a>
                 </div>
+                <!--
                 <div class="swiper-slide">
                     <a href="/card" id="phase-link">
                         <div class="phase-1">
@@ -122,6 +123,7 @@
                         </div>
                     </a>
                 </div>
+            -->
             </div>
             <!-- <div class="swiper-button-next"></div>
             <div class="swiper-button-prev"></div> -->
