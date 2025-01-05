@@ -32,5 +32,6 @@ public class Topic {
 
     @OneToMany(mappedBy = "topic", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Flashcard> flashcards;
+
     
 }

@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.edtech.quizz.Model.Flashcard;
+import com.edtech.quizz.Model.Topic;
 
 @Repository
-public interface FlashcardRepo extends JpaRepository<Flashcard,Integer>{
+public interface TopicRepo extends JpaRepository<Topic,Integer>{
 
-    List<Flashcard> findAllByTopicTopicId(int topicId);
+    List<Topic> findTopicByPhasePhaseId(int phaseId);
     
 }

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.edtech.quizz.Service.FlashcardService;
 import com.edtech.quizz.Service.PhaseService;
+import com.edtech.quizz.Service.TopicService;
+
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -16,6 +18,9 @@ public class LearningZoneController {
     
     @Autowired
     private FlashcardService Fservice;
+
+    @Autowired
+    private TopicService Tservice;
     
     @Autowired
     private PhaseService Pservice;
@@ -36,12 +41,15 @@ public class LearningZoneController {
         return "learning_zone";
     }
 
-    // @GetMapping("/learning/{phaseId}")
-    // public String getMethodName(@PathVariable int phaseId,Model model) {
-    //     model.addAttribute( "phases" , Pservice.getAllPhase());
-    //     model.addAttribute("cards", Fservice.allcards());
-    //     return "LearningTest";
-    // }
+    @GetMapping("/learning/{phaseId}")
+    public String getMethodName(@PathVariable int phaseId,Model model) {
+
+        System.out.println("======================");
+        System.out.println(Tservice.getTopicByPhaseId(phaseId).size());
+        System.out.println("======================");
+        model.addAttribute("topics", Tservice.getTopicByPhaseId(phaseId));
+        return "card";
+    }
     
 
 }

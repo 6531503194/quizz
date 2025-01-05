@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="x-icon" href="icons/quizlogo99.svg">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="styles/general.css">
-    <link rel="stylesheet" href="styles/header.css">
-    <link rel="stylesheet" href="styles/profile.css">
-    <link rel="stylesheet" href="styles/learning_zone.css">
+    <link rel="shortcut icon" type="x-icon" th:href="@{/icons/quizlogo99.svg}">
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css}" />
+    <link rel="stylesheet" th:href="@{/styles/general.css}">
+    <link rel="stylesheet" th:href="@{/styles/header.css}">
+    <link rel="stylesheet" th:href="@{/styles/profile.css}">
+    <link rel="stylesheet" th:href="@{/styles/learning_zone.css}">
     <title>Learning Zone</title>
 </head>
 <body>
     <div class="background-image"></div>
     <div class="header">
         <div class="logo-box">
-            <a href="home">
-                <img class="logo" src="icons/quizlogo.svg" alt="Logo">
+            <a th:href="@{/home}">
+                <img class="logo" th:src="@{/icons/quizlogo.svg}" alt="Logo">
             </a>
             <div class="logo-name">
                 <span class="quiz">QUIZ</span>
@@ -25,8 +25,8 @@
         </div>
         <div class="profile-box">
             <span class="pf-lvl">Lvl - 01</span>
-            <div >
-                <img class="profile" id="profile" src="images/space_man.png" alt="Logo">
+            <div>
+                <img class="profile" id="profile" th:src="@{/images/space_man.png}" alt="Profile">
             </div>
         </div>
     </div>
@@ -34,39 +34,35 @@
         <div class="top-box">
             <div class="top-lf">Profile</div>
             <div class="top-rg">
-                <img class="speaker-icon" src="icons/speaker.png" alt="Seapker icon">
-                <a href="/update_profile.html">
-                    <img class="edit-icon" src="icons/lucide_edit.png" alt="Edit icon">
+                <img class="speaker-icon" th:src="@{/icons/speaker.png}" alt="Speaker icon">
+                <a th:href="@{/update_profile.html}">
+                    <img class="edit-icon" th:src="@{/icons/lucide_edit.png}" alt="Edit icon">
                 </a>
             </div>
         </div>
         <div class="bottom-box">
-            <div class="pf-picture"><img src="images/space_man.png" alt="Profile"></div>
+            <div class="pf-picture"><img th:src="@{/images/space_man.png}" alt="Profile"></div>
             <div class="pf-name">
                 Space Man
-<!--                <img src="icons/ship-wheel (1).svg" alt="Badge">-->
             </div>
             <span class="lvl">Level - 01</span>
             <span class="pf-email">spaceman@gmail.com</span>
-            <!-- <button class="sign-out-btn">Sign out</button> -->
         </div>
     </div>
     <div id="overlay" class="overlay"></div>
     <div class="body-div">
-        <a href="/home">
+        <a th:href="@{/home}">
             <div class="back">
-                <img class="back-arrow" src="icons/back-arrow.png" alt="back"> Back
+                <img class="back-arrow" th:src="@{/icons/back-arrow.png}" alt="Back"> Back
             </div>
         </a>
-
-        <!-- <h2 class="content-title">Unlock Project Management Skills with Flashcards!</h2> -->
         <div class="phase-div swiper mySwiper">
             <div class="swiper-wrapper">
                 <div class="swiper-slide" th:each="phase : ${phases}">
                     <a th:href="@{'/learning/' + ${phase.phaseId}}" id="phase-link">
                         <div class="phase-1">
                             <div class="pic-box">
-                                <img src="images/space_man.png" alt="Initiation">
+                                <img th:src="@{/images/space_man.png}" alt="Initiation">
                             </div>
                             <span class="phase-name" th:text="${phase.phaseName}">Initiation</span>
                             <span class="phase-desc" th:text="${phase.description}">
@@ -77,62 +73,12 @@
                         </div>
                     </a>
                 </div>
-                <!--
-                <div class="swiper-slide">
-                    <a href="/card" id="phase-link">
-                        <div class="phase-1">
-                            <div class="pic-box">
-                                <img src="images/space_man.png" alt="Planning">
-                            </div>
-                            <span class="phase-name">Planning</span>
-                            <span class="phase-desc">
-                                Set the foundation for project success by defining objectives, 
-                                identifying key stakeholders, and developing a project charter 
-                                to authorize the project.
-                            </span>
-                        </div>
-                    </a>
-                </div>
-                <div class="swiper-slide">
-                    <a href="/card" id="phase-link">
-                        <div class="phase-1">
-                            <div class="pic-box">
-                                <img src="images/space_man.png" alt="Executing">
-                            </div>
-                            <span class="phase-name">Executing</span>
-                            <span class="phase-desc">
-                                Set the foundation for project success by defining objectives, 
-                                identifying key stakeholders, and developing a project charter 
-                                to authorize the project.
-                            </span>
-                        </div>
-                    </a>
-                </div>
-                <div class="swiper-slide">
-                    <a href="/card" id="phase-link">
-                        <div class="phase-1">
-                            <div class="pic-box">
-                                <img src="images/space_man.png" alt="Closing">
-                            </div>
-                            <span class="phase-name">Closing</span>
-                            <span class="phase-desc">
-                                Set the foundation for project success by defining objectives, 
-                                identifying key stakeholders, and developing a project charter 
-                                to authorize the project.
-                            </span>
-                        </div>
-                    </a>
-                </div>
-            -->
             </div>
-            <!-- <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div> -->
             <div class="swiper-pagination"></div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
+    <script th:src="@{https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js}"></script>
   <!-- Initialize Swiper -->
   <script>
    var swiper = new Swiper(".mySwiper", {
@@ -200,6 +146,7 @@
             }
         });
     </script>
+<!--
     <script type="text/javascript">
         const audio = new Audio();
         audio.src = "./audio/click.mp3";
@@ -217,5 +164,6 @@
             }, 300);
         });
     </script>
+-->
 </body>
 </html>

@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="x-icon" href="icons/quizlogo99.svg">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="styles/general.css">
-    <link rel="stylesheet" href="styles/card.css">
-    <link rel="stylesheet" href="styles/header.css">
-    <link rel="stylesheet" href="styles/profile.css">
+    <link rel="shortcut icon" type="x-icon" th:href="@{/icons/quizlogo99.svg}">
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css}" />
+    <link rel="stylesheet" th:href="@{/styles/general.css}">
+    <link rel="stylesheet" th:href="@{/styles/card.css}">
+    <link rel="stylesheet" th:href="@{/styles/header.css}">
+    <link rel="stylesheet" th:href="@{/styles/profile.css}">
     <title>Card</title>
 </head>
 
@@ -17,8 +17,8 @@
     <div class="background-image"></div>
     <div class="header">
         <div class="logo-box">
-            <a href="home">
-                <img class="logo" src="icons/quizlogo.svg" alt="Logo">
+            <a th:href="@{/home}">
+                <img class="logo" th:src="@{/icons/quizlogo.svg}" alt="Logo">
             </a>
             <div class="logo-name">
                 <span class="quiz">QUIZ</span>
@@ -27,8 +27,8 @@
         </div>
         <div class="profile-box">
             <span class="pf-lvl">Lvl - 01</span>
-            <div >
-                <img class="profile" id="profile" src="images/space_man.png" alt="Logo">
+            <div>
+                <img class="profile" id="profile" th:src="@{/images/space_man.png}" alt="Profile">
             </div>
         </div>
     </div>
@@ -36,53 +36,47 @@
         <div class="top-box">
             <div class="top-lf">Profile</div>
             <div class="top-rg">
-                <img class="speaker-icon" src="icons/speaker.png" alt="Seapker icon">
-                <a href="/update_profile.html">
-                    <img class="edit-icon" src="icons/lucide_edit.png" alt="Edit icon">
+                <img class="speaker-icon" th:src="@{/icons/speaker.png}" alt="Speaker icon">
+                <a th:href="@{/update_profile}">
+                    <img class="edit-icon" th:src="@{/icons/lucide_edit.png}" alt="Edit icon">
                 </a>
             </div>
         </div>
         <div class="bottom-box">
-            <div class="pf-picture"><img src="images/space_man.png" alt="Profile"></div>
-            <div class="pf-name">
-                Space Man
+            <div class="pf-picture">
+                <img th:src="@{/images/space_man.png}" alt="Profile">
             </div>
+            <div class="pf-name">Space Man</div>
             <span class="lvl">Level - 01</span>
             <span class="pf-email">spaceman@gmail.com</span>
-            <!-- <button class="sign-out-btn">Sign out</button> -->
         </div>
     </div>
     <div id="overlay" class="overlay"></div>
-    <a href="/learning_zone">
+    <a th:href="@{/learning_zone}">
         <div class="back-arr">
-            <img class="back-arrow" src="icons/back-arrow.png" alt="back"> Back
+            <img class="back-arrow" th:src="@{/icons/back-arrow.png}" alt="Back"> Back
         </div>
     </a>
     <div class="search-box">
         <div class="search-input">
             <input type="text" placeholder="Search card...">
         </div>
-        <a href="search_card.html">
+        <a th:href="@{/search_card}">
             <div class="search-icon">
-                <img src="icons/search.png" alt="search">
+                <img th:src="@{/icons/search.png}" alt="Search">
             </div>
         </a>
-
     </div>
-    <a href="card_collection">
+    <a th:href="@{/card_collection}">
         <div class="favorite">
             <span class="tooltip-collection">Card Collection</span>
-            <img class="fav-icon" src="icons/star.png" alt="star">
+            <img class="fav-icon" th:src="@{/icons/star.png}" alt="Star">
         </div>
     </a>
     <div class="container">
         <div class="collection">
-            <div class="flashcard-set-box">
-                <div class="set-title selected">Project Charter</div>
-                <div class="set-title">Topic 1</div>
-                <div class="set-title">Topic 2</div>
-                <div class="set-title">Topic 3</div>
-                <div class="set-title">Topic 4</div>
+            <div class="flashcard-set-box" th:each="topic : ${topics}">
+                <div class="set-title" th:text="${topic.topicName}"></div>
             </div>
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
@@ -90,33 +84,29 @@
                         <div class="flashcard" onclick="flipCard(this)">
                             <div class="flashcard-face front">
                                 <div class="content-pic">
-                                    <img class="pic"src="images/car_card.png" alt="image">
+                                    <img class="pic" th:src="@{/images/car_card.png}" alt="Image">
                                     <div class="star">
-                                        <img class="star-icon" src="icons/star2.png" alt="star">
-                                        <img class="star-icon-color" src="icons/star.png" alt="star">
+                                        <img class="star-icon" th:src="@{/icons/star2.png}" alt="Star">
+                                        <img class="star-icon-color" th:src="@{/icons/star.png}" alt="Star">
                                         <span class="tooltip">Add to Collection</span>
                                     </div>
                                 </div>
                                 <div class="text-content">
-                                  <h3>Soccer</h3>
-                                  <p>
-                                    Learn how to create a dynamic carousel slider
-                                    using Swiper JS in this tutorial! Explore step-by-step
-                                    instructions and code examples to enhance your web development skills.
-                                  </p>
+                                    <h3>Soccer</h3>
+                                    <p>Learn how to create a dynamic carousel slider using Swiper JS...</p>
                                 </div>
                             </div>
                             <div class="flashcard-face back">
                                 <div class="content-pic">
-                                    <img class="pic" src="images\space_man.png" alt="image">
+                                    <img class="pic" th:src="@{/images/space_man.png}" alt="Image">
                                     <div class="star">
-                                        <img class="star-icon" src="icons/star2.png" alt="star">
-                                        <img class="star-icon-color" src="icons/star.png" alt="star">
+                                        <img class="star-icon" th:src="@{/icons/star2.png}" alt="Star">
+                                        <img class="star-icon-color" th:src="@{/icons/star.png}" alt="Star">
                                         <span class="tooltip">Add to Collection</span>
                                     </div>
                                 </div>
                                 <div class="text-content">
-                                  <h3>Space Man</h3>
+                                    <h3>Space Man</h3>
                                   <p>
                                     Learn how to create a dynamic carousel slider
                                     using Swiper JS in this tutorial! Explore step-by-step
@@ -126,6 +116,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="swiper-slide">
                         <div class="flashcard" onclick="flipCard(this)">
                             <div class="flashcard-face front">
@@ -165,7 +156,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>               
+                    </div>    
+                                        <!--           
                     <div class="swiper-slide">
                         <div class="flashcard" onclick="flipCard(this)">
                             <div class="flashcard-face front">
@@ -325,7 +317,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>   
+                    </div>  
+                     -->
                 </div>
             </div>
             <div class="swiper-button-next"></div>

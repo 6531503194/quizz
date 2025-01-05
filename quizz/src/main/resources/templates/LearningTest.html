@@ -48,10 +48,36 @@
                     <th>Phase ID</th>
                     <th>Phase Name</th>
                     <th>Description</th>
+                    <th>Check Topics</th>                    
                 </tr>
             </thead>
-            <tbody th:each="phase : ${phases}">
+            <tbody >
+                <tr th:each="phase : ${phases}">
+                    <td th:text="${phase.phaseId}"></td>
+                    <td th:text="${phase.phaseName}"></td>
+                    <td th:text="${phase.description}"></td>
+                    <td>
+                        <form th:action="@{'/learning/'+ ${phase.phaseId}}" method="get">
+
+                            <button type="submit" class="btn btn-primary">Check Topics</button>
+                        </form>
+                    </td>
+                </tr>
+                
+            </tbody>
+        </table>
+
+        <h2>Phase Table</h2>
+        <table>
+            <thead>
                 <tr>
+                    <th>Phase ID</th>
+                    <th>Phase Name</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody >
+                <tr th:each="phase : ${phases}">
                     <td th:text="${phase.phaseId}"></td>
                     <td th:text="${phase.phaseName}"></td>
                     <td th:text="${phase.description}"></td>
@@ -60,9 +86,11 @@
             </tbody>
         </table>
 
+
+
         <!-- Topic Table -->
         <h2>Topic Table</h2>
-        <table>
+       <!-- <table>
             <thead>
                 <tr>
                     <th>Topic ID</th>
@@ -80,40 +108,32 @@
                 </tr>
 
             </tbody>
-        </table>
+        </table> -->
 
         <!-- Flashcard Table -->
         <h2>Flashcard Table</h2>
-        <!--
-                <table>
+        <table>
             <thead>
                 <tr>
                     <th>Card ID</th>
                     <th>Card Name</th>
                     <th>Card Image</th>
                     <th>Definition</th>
-                    <th>Topic ID</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Prokaryotic Cell</td>
-                    <td><img src="prokaryotic_cell.png" alt="Prokaryotic Cell" class="img-thumbnail"></td>
-                    <td>A cell that does not have a true nucleus.</td>
-                    <td>1</td>
+                <!-- Iterate through the cards list -->
+                <tr th:each="card : ${cards}">
+                    <td th:text="${card.cardId}"></td>
+                    <td th:text="${card.cardName}"></td>
+                    <td>
+                        <img th:src="@{${card.cardImg}}" alt="Flashcard Image" class="img-thumbnail">
+                    </td>
+                    <td th:text="${card.definition}"></td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Eukaryotic Cell</td>
-                    <td><img src="eukaryotic_cell.png" alt="Eukaryotic Cell" class="img-thumbnail"></td>
-                    <td>A cell with a true nucleus enclosed in a membrane.</td>
-                    <td>1</td>
-                </tr>
-
             </tbody>
         </table>
-        -->
+
 
     </div>
 </body>

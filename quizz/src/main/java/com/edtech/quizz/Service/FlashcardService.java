@@ -14,16 +14,14 @@ public class FlashcardService {
     private FlashcardRepo Frepo;
 
     public List<Flashcard> allcards(){
+        System.out.println(Frepo.count());
         return Frepo.findAll();
     }
 
-    // public List<Flashcard> getFlashcardByTopicId(int topicId){
-    //     List<Flashcard> cardsBytopic = Frepo.findAllByTopicId(topicId);
-    //     return cardsBytopic;
-    // }
+    public List<Flashcard> getFlashcardByTopicId(int topicId){
+        List<Flashcard> cardsBytopic = Frepo.findAllByTopicTopicId(topicId);
+        return cardsBytopic;
+    }
 
-    // public List<Flashcard> getFlashcardByPhaseId(int phaseId) {
-    //     List<Flashcard> cardsBytopic = Frepo.findAllByPhaseId();
-    //     return cardsBytopic;
-    // }
+    
 }
