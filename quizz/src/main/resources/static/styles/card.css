@@ -82,10 +82,13 @@
     font: 0.8rem;
     text-align: center;
     cursor: pointer;
+
+    display: inline-block;
+    justify-content: space-between;
 }
 .set-title::after{
     content: '';
-    position: absolute;
+    /* position: absolute; */
     border: 1.5px solid rgb(255, 255, 255);
     border-radius: 2px;
     bottom: -2px;
