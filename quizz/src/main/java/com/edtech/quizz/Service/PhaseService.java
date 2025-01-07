@@ -17,4 +17,8 @@ public class PhaseService {
     public List<Phase> getAllPhase(){
         return Prepo.findAll();
     }
+
+    public String getNameByPhaseId(int phaseId) {
+        return Prepo.findById(phaseId).get().getPhaseName();
+    }
 }
