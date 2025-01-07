@@ -43,14 +43,19 @@ public class GameZoneController {
         String name = Pservice.getNameByPhaseId(phaseId);
         System.out.println(name);
         System.out.println("======================");
-        model.addAttribute("name", name);
+
+        if(name != null){
+            model.addAttribute("name", name);
+        }
 
         List<Topic> topics = Tservice.getTopicByPhaseId(phaseId);
         List<Quiz> quizzs = quizService.getQuizByTopicList(topics);
         System.out.println("======================");
-        System.out.println(topics.size());
+        int Tsize = topics.size();
+        System.out.println(Tsize);
         System.out.println("======================");
-        System.out.println(quizzs);
+        int Qsize = quizzs.size();
+        System.out.println(Qsize);
         System.out.println("======================");
 
         // model.addAttribute("quizzs", quizzs);

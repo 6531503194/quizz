@@ -2,6 +2,7 @@ package com.edtech.quizz.Model;
 
 import java.sql.Timestamp;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,6 +24,7 @@ public class Leaderboard {
     private int LeaderboardId;
     private int rank;
     private int point;
+    @Column(nullable = true)
     private Timestamp timeTaken;
 
     @ManyToOne
