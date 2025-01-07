@@ -46,27 +46,6 @@ public class LearningZoneController {
         return "learning_zone";
     }
 
-    // @GetMapping("/learning/{phaseId}")
-    // public String getMethodName(@PathVariable int phaseId,Model model) {
-
-    //     System.out.println("======================");
-    //     System.out.println(Tservice.getTopicByPhaseId(phaseId).size());
-    //     System.out.println("======================");
-    //     model.addAttribute("topics", Tservice.getTopicByPhaseId(phaseId));
-    //     System.out.println("======================");
-    //     System.out.println(Fservice.getFlashcardByTopicId(1).size());
-    //     System.out.println("======================"); 
-    //     model.addAttribute("cards", Fservice.getFlashcardByTopicId(1)); 
-    //     return "card";
-    // }
-
-    // @GetMapping("/learning/cards/{topicId}")
-    // @ResponseBody
-    // public List<Flashcard> getCardsByTopicId(@PathVariable int topicId) {
-    //     return Fservice.getFlashcardByTopicId(topicId);
-    // }
-
-
     @GetMapping("/learning/{phaseId}")
     public String getMethodName(@PathVariable int phaseId, Model model) {
 

@@ -17,11 +17,6 @@ public class FroentEndTestingController {
     //     return "learning_zone";
     // }
 
-    // @GetMapping("/card")
-    // public String cardList(){
-    //     return "card";
-    // }
-
     @GetMapping("/card_collection")
     public String favIcon(){
         return "card_collection";

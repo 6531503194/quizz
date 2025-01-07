@@ -41,7 +41,7 @@
             </div>
         </div>
         <div class="bottom-box">
-            <div class="pf-picture"><img th:src="@{/images/space man.png}" alt="Profile"></div>
+            <div class="pf-picture"><img th:src="@{/images/space_man.png}" alt="Profile"></div>
             <div class="pf-name">
                 Space Man
                 <img th:src="@{/icons/ship-wheel (1).svg}" alt="Badge">
@@ -167,69 +167,15 @@
         <div class="game-set-container">
             <span class="game-set-title">Ready to boost your rank in Leaderboard</span>
             <div class="game-set-box">
-                <div class="game-set">
+                <div class="game-set" th:each="quiz : ${quizs}">
                     <div class="topic-img">
                         <img th:src="@{/images/blog-images-agile3-removebg-preview.png}" alt="topic img">
                     </div>
-                    <span class="topic-name">Project Charter</span>
-                    <a href="quiz.html">
+                    <span class="topic-name" th:text="${quiz.quizName}">Project Charter</span>
+                    <a th:href="@{'/game/'+ ${phaseId} + '/quiz/' + ${quiz.quizId}}">
                         <button class="start-btn">START</button>
                     </a>
-                </div>    
-                <div class="game-set">
-                    <div class="topic-img">
-                        <img th:src="@{/images/blog-images-agile3-removebg-preview.png}" alt="topic img">
-                    </div>
-                    <span class="topic-name">Project Charter</span>
-                    <a href="quiz.html">
-                        <button class="start-btn">START</button>
-                    </a>
-                </div> 
-                <div class="game-set">
-                    <div class="topic-img">
-                        <img th:src="@{/images/blog-images-agile3-removebg-preview.png}" alt="topic img">
-                    </div>
-                    <span class="topic-name">Project Charter</span>
-                    <a href="quiz.html">
-                        <button class="start-btn">START</button>
-                    </a>
-                </div> 
-                <div class="game-set">
-                    <div class="topic-img">
-                        <img th:src="@{/images/blog-images-agile3-removebg-preview.png}" alt="topic img">
-                    </div>
-                    <span class="topic-name">Project Charter</span>
-                    <a href="quiz.html">
-                        <button class="start-btn">START</button>
-                    </a>
-                </div> 
-                <div class="game-set">
-                    <div class="topic-img">
-                        <img th:src="@{/images/blog-images-agile3-removebg-preview.png}" alt="topic img">
-                    </div>
-                    <span class="topic-name">Project Charter</span>
-                    <a href="quiz.html">
-                        <button class="start-btn">START</button>
-                    </a>
-                </div> 
-                <div class="game-set">
-                    <div class="topic-img">
-                        <img th:src="@{/images/blog-images-agile3-removebg-preview.png}" alt="topic img">
-                    </div>
-                    <span class="topic-name">Project Charter</span>
-                    <a href="quiz.html">
-                        <button class="start-btn">START</button>
-                    </a>
-                </div> 
-                <div class="game-set">
-                    <div class="topic-img">
-                        <img th:src="@{/images/blog-images-agile3-removebg-preview.png}" alt="topic img">
-                    </div>
-                    <span class="topic-name">Project Charter</span>
-                    <a href="quiz.html">
-                        <button class="start-btn">START</button>
-                    </a>
-                </div> 
+                </div>   
             </div>
         </div>
 

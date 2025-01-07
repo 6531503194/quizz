@@ -21,6 +21,7 @@ public class Quiz {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int quizId;
     private int topicId;
+    private String quizName;
 
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Leaderboard> leaderboards;
