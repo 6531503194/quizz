@@ -172,7 +172,7 @@
                         <img th:src="@{/images/blog-images-agile3-removebg-preview.png}" alt="topic img">
                     </div>
                     <span class="topic-name" th:text="${quiz.quizName}">Project Charter</span>
-                    <a th:href="@{'/game/'+ ${phaseId} + '/quiz/' + ${quiz.quizId}}">
+                    <a th:href="@{'/game/'+ ${phaseId} + '/quiz/' + ${quiz.quizId}} + '/' + ${questionId}">
                         <button class="start-btn">START</button>
                     </a>
                 </div>   

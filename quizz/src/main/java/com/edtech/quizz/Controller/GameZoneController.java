@@ -31,6 +31,12 @@ public class GameZoneController {
     @Autowired
     private QuizService quizService;
 
+    @Autowired
+    private QuestionService QService;
+
+    @Autowired
+    private AnswerService Aservice;
+
     @GetMapping("/game_zone")
     public String gamezone(Model model){
         model.addAttribute( "phases" , Pservice.getAllPhase());
@@ -56,14 +62,37 @@ public class GameZoneController {
         System.out.println(Qsize);
         System.out.println("======================");
         model.addAttribute("quizs", quizzs);
+        int questionId = 1;
+        model.addAttribute("questionId", questionId);
         return "game_set";
     }
 
-    //Below this code are not done(This method is just for testing)
-    @GetMapping("/game/1/quiz/1")
-    public String quiz(){
+    @GetMapping("/game/{phaseId}/quiz/{quizId}/{questionId}")
+    public String quiz(Model model, @PathVariable("phaseId") int phaseId, @PathVariable("quizId") int quizId, @PathVariable("questionId") int questionId) {
+
+        List<Question> questions = QService.getQuestionsByQuizId(quizId);
+    
+        Question currentQuestion = questions.stream()
+                                            .filter(q -> q.getQuestionId() == questionId)
+                                            .findFirst()
+                                            .orElseThrow(() -> new IllegalArgumentException("Invalid questionId"));
+        
+        List<Answer> answers = Aservice.getAnswersByQuestion(List.of(currentQuestion));
+        int A = answers.size();
+        System.out.println("++++Size of answer ++++++++++  ");
+        System.out.println(A);
+        System.out.println("+++++++++++++++++++");
+
+        model.addAttribute("questions", questions);
+        model.addAttribute("question", currentQuestion);
+        model.addAttribute("answers", answers);
+        model.addAttribute("phaseId", phaseId);
+        model.addAttribute("quizId", quizId);
+
         return "quiz";
     }
+
+
 
     // @GetMapping("/check/{questionId}/{answerId}")
     // @ResponseBody

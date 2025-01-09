@@ -75,8 +75,11 @@
     </a>
     <div class="container">
         <div class="collection">
-            <div class="flashcard-set-box" th:each="topic : ${topics}">
-                <div class="set-title" th:text="${topic.topicName}" data-topic-id="${topic.id}"></div>
+            <div class="flashcard-set-box" >
+                <div class="set-title" data-topic-id="${topic.id}" th:each="topic : ${topics}">
+                    <div th:text="${topic.topicName}" data-topic-id="${topic.id}"></div>
+                </div>
+                
             </div>            
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">

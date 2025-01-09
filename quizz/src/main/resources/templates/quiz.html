@@ -51,7 +51,7 @@
                 <img th:src="@{/icons/stopwatch.svg}" alt="timer img">
                 <span id="timer">00:45</span>
             </div>
-            <a href="game_set.html">
+            <a href="game_set">
                 <div id="exit-link" class="exist">
                     <img th:src="@{/icons/exit-door.svg}" alt="exist icon">
                     <span>Exist</span>
@@ -64,37 +64,33 @@
                     <button id="cancel-exit">No</button>
                 </div>
             </div>
-            <div class="remain-question"> 1 / 8</div>
+
+
+            <div class="remain-question">
+                <span th:text="${#numbers.formatInteger(question.questionId, 0)}"></span>
+                / 
+                <span th:text="${questions.size()}"></span>
+            </div>
+            
             <div class="question-box">
                 <div class="Q-img">
-                    <img th:src="@{/images/blog-images-agile3-removebg-preview.png}" alt="Question image">
+                    <img th:src="${question.questionImg}" alt="Question image">
                 </div>
-                <span class="question">
-                    Which of the following is NOT a characteristic of Agile project management?
+                <span class="question" th:text="${question.questionText}">
                 </span>
             </div>
+            
             <div class="answer-box">
-                <div class="answer" onclick="selectAnswer(this)">
-                    <span class="ans-A">A.</span>
-                    <span class="ans-text">Iterative development</span>
-                    <div class="ans-bg"></div>
-                </div>
-                <div class="answer" onclick="selectAnswer(this)">
-                    <span class="ans-A">B.</span>
-                    <span class="ans-text">Frequent delivery of working software</span>
-                </div>
-                <div class="answer" onclick="selectAnswer(this)">
-                    <span class="ans-A">C.</span>
-                    <span class="ans-text">Fixed, unchangeable project scope</span>
-                </div>
-                <div class="answer" onclick="selectAnswer(this)">
-                    <span class="ans-A">D.</span>
-                    <span class="ans-text">Collaborative approach with stakeholders</span>
+                <div class="answer" th:each="answer : ${answers}" onclick="selectAnswer(this)">
+            <!--    <span class="ans-A" th:text="'A.'.concat(${answer.answerId})">A.</span>-->
+                    <span class="ans-text" th:text="${answer.answerText}">
+                    </span>
                 </div>
             </div>
-            <a href="quiz_result.html">
-                <button id="finish-btn" class="next-btn">NEXT</button>
-            </a>
+            
+            <button id="finish-btn" class="next-btn" onclick="nextQuestion()">NEXT</button>
+            
+
         </div>
  </div>
 <script>
@@ -106,6 +102,29 @@
 
         selectedElement.classList.add('selected');
     }
+
+    function nextQuestion() {
+        // Get the current question ID from the page
+        const currentQuestionId = [[${question.questionId}]];
+        const totalQuestions = [[${questions.size()}]];
+    
+        // Calculate the next question ID
+        const nextQuestionId = currentQuestionId + 1;
+    
+        if (nextQuestionId <= totalQuestions) {
+            // Get phaseId and quizId from Thymeleaf variables
+            const phaseId = [[${phaseId}]];
+            const quizId = [[${quizId}]];
+    
+
+            const nextUrl = `/game/${phaseId}/quiz/${quizId}/${nextQuestionId}`;
+            window.location.href = nextUrl;
+        } else {
+
+            window.location.href = '/quiz_result';
+        }
+    }
+    
 </script>
 
 <script>

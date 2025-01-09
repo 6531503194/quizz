@@ -102,7 +102,7 @@
           <div class="top-rg">
             
             <button id="speaker-btn" class="speaker-btn">
-                🔊 <!-- Replace with an actual speaker icon -->
+                🔇 <!-- Replace with an actual speaker icon -->
               </button>
               <audio id="background-audio" autoplay loop>
                 <source src="./audio/background.mp3" type="audio/mp3">
@@ -408,8 +408,8 @@
         }
     });
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/intro.min.js"></script>
-<script src="scripts/onboarding/home.js"></script>
+<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/intro.min.js}"></script>
+<script th:src="@{/scripts/onboarding/home.js}"></script>
 
 
 <script >
@@ -419,7 +419,7 @@
       const speakerBtn = document.getElementById("speaker-btn");
     
       // Ensure audio starts muted (if desired)
-      audio.muted = false;
+      audio.muted = true;
     
       speakerBtn.addEventListener("click", () => {
         if (audio.muted) {
