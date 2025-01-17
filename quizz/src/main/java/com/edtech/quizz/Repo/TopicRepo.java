@@ -11,5 +11,7 @@ import com.edtech.quizz.Model.Topic;
 public interface TopicRepo extends JpaRepository<Topic,Integer>{
 
     List<Topic> findTopicByPhasePhaseId(int phaseId);
+
+    List<Topic> findAllByPhasePhaseId(int phaseId);
     
 }

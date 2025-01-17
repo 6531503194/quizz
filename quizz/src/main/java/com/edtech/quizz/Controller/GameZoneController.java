@@ -13,7 +13,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.edtech.quizz.Model.*;
+import com.edtech.quizz.Repo.QuestionRepo;
+import com.edtech.quizz.Repo.QuizRepo;
 import com.edtech.quizz.Service.*;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @Controller
@@ -68,42 +72,58 @@ public class GameZoneController {
     }
 
     @GetMapping("/game/{phaseId}/quiz/{quizId}/{questionId}")
-    public String quiz(Model model, @PathVariable("phaseId") int phaseId, @PathVariable("quizId") int quizId, @PathVariable("questionId") int questionId) {
-
-        List<Question> questions = QService.getQuestionsByQuizId(quizId);
+    public String quiz(Model model, 
+                        @PathVariable("phaseId") int phaseId,
+                        @PathVariable("quizId") int quizId,
+                        @PathVariable("questionId") int questionId) {
     
-        Question currentQuestion = questions.stream()
-                                            .filter(q -> q.getQuestionId() == questionId)
-                                            .findFirst()
-                                            .orElseThrow(() -> new IllegalArgumentException("Invalid questionId"));
+        List<Question> questions = QService.getQuestionsByQuizId(quizId);
+        Question currentQuestion = null;
         
+        final int[] currentQuestionId = {questionId}; 
+        
+        while (currentQuestion == null) {
+            try {
+                currentQuestion = questions.stream()
+                                        .filter(q -> q.getQuestionId() == currentQuestionId[0])
+                                        .findFirst()
+                                        .orElseThrow(() -> new IllegalArgumentException("Invalid questionId"));
+            } catch (IllegalArgumentException e) {
+                System.out.println("Error: " + e.getMessage());
+                
+                currentQuestionId[0]++; 
+                System.out.println("Trying next questionId: " + currentQuestionId[0]);
+            }
+        }
+    
         List<Answer> answers = Aservice.getAnswersByQuestion(List.of(currentQuestion));
         int A = answers.size();
         System.out.println("++++Size of answer ++++++++++  ");
         System.out.println(A);
         System.out.println("+++++++++++++++++++");
-
+    
         model.addAttribute("questions", questions);
         model.addAttribute("question", currentQuestion);
         model.addAttribute("answers", answers);
         model.addAttribute("phaseId", phaseId);
         model.addAttribute("quizId", quizId);
-
+    
         return "quiz";
+    }
+    
+    
+    @GetMapping("/game/{phaseId}/quiz/{quizId}/question/{questionId}")
+    @ResponseBody
+    public Question getQuestion(@PathVariable("questionId") int questionId) {
+        return QService.getQuestionByID(questionId);
+    }
+
+    @GetMapping("/game/{phaseId}/quiz/{quizId}/answers/{questionId}")
+    @ResponseBody
+    public List<Answer> getAnswers(@PathVariable("questionId") int questionId) {
+        Question question = QService.getQuestionByID(questionId);
+        return Aservice.getAnswersByOneQuestion(question);
     }
 
 
-
-    // @GetMapping("/check/{questionId}/{answerId}")
-    // @ResponseBody
-    // public Map<String, Object> checkQuiz(@PathVariable("questionId") int questionId,@PathVariable("answerId") int answerId) {
-    //     Map<String, Object> response = new HashMap<>();
-    //     System.out.println("======================");
-    //     System.out.println("ResponseBody " +Fservice.getFlashcardByTopicId(questionId).size());
-    //     System.out.println("======================");
-    //     response.put("cards", Fservice.getFlashcardByTopicId(questionId));
-    //     return response;
-    // }
-
-    
 }

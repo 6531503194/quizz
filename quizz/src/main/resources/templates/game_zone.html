@@ -70,7 +70,7 @@
                     <a th:href="@{'/game_set/' + ${phase.phaseId}}" id="close">
                         <div class="phase-1">
                             <div class="pic-box">
-                                <img th:src="@{/images/space_man.png}" alt="spaceman">
+                                <img th:src="@{'/images/' + ${phase.phaseImg}}" alt="Phase Picture">
                             </div>
                             <span class="phase-name" th:text="${phase.phaseName}"></span>
                             <span class="phase-desc" th:text="${phase.description}"></span>

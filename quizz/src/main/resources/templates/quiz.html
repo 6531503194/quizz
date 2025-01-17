@@ -28,7 +28,7 @@
     </div>
     <div class="header hidden">
             <div class="logo-box">
-                <a href="home.html">
+                <a th:href="@{/home}">
                     <img class="logo" th:src="@{/icons/quizlogo.svg}" alt="Logo">
                 </a>
                     <div class="logo-name">
@@ -54,7 +54,7 @@
             <a href="game_set">
                 <div id="exit-link" class="exist">
                     <img th:src="@{/icons/exit-door.svg}" alt="exist icon">
-                    <span>Exist</span>
+                    <span>Exit</span>
                 </div>
             </a>
             <div id="confirmation-overlay" class="hidden">
@@ -67,7 +67,7 @@
 
 
             <div class="remain-question">
-                <span th:text="${#numbers.formatInteger(question.questionId, 0)}"></span>
+                <span  th:text="${questions.indexOf(question) + 1}"></span>
                 / 
                 <span th:text="${questions.size()}"></span>
             </div>
@@ -124,6 +124,8 @@
             window.location.href = '/quiz_result';
         }
     }
+     
+
     
 </script>
 

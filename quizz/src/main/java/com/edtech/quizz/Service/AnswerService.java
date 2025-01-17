@@ -27,4 +27,8 @@ public class AnswerService {
         
         return allAnswers;
     }
+
+    public List<Answer> getAnswersByOneQuestion(Question q) {
+        return AnswerRepo.findByQuestion(q);
+    }
 }

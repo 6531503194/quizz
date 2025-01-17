@@ -17,5 +17,9 @@ public class QuestionService {
     public List<Question> getQuestionsByQuizId(int quizId) {
         return QRepo.findByQuizQuizId(quizId);
     }
+
+    public Question getQuestionByID(int questionId) {
+        return QRepo.findById(questionId).orElse(null);
+    }
     
 }

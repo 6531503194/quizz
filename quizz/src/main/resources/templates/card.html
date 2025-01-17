@@ -1,17 +1,21 @@
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="x-icon" th:href="@{/icons/quizlogo99.svg}">
+    <link rel="shortcut icon" type="x-icon" th:href="@{/icons/quizlogo.svg}">
     <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css}" />
     <link rel="stylesheet" th:href="@{/styles/general.css}">
     <link rel="stylesheet" th:href="@{/styles/card.css}">
     <link rel="stylesheet" th:href="@{/styles/header.css}">
     <link rel="stylesheet" th:href="@{/styles/profile.css}">
-    <title>Card</title>
+    <title>QUIZ GAME - Cards</title>
 </head>
+
 
 <body>
     <div class="background-image"></div>
@@ -37,87 +41,55 @@
             <div class="top-lf">Profile</div>
             <div class="top-rg">
                 <img class="speaker-icon" th:src="@{/icons/speaker.png}" alt="Speaker icon">
-                <a th:href="@{/update_profile}">
+                <a th:href="@{/update_profile.html}">
                     <img class="edit-icon" th:src="@{/icons/lucide_edit.png}" alt="Edit icon">
                 </a>
             </div>
         </div>
         <div class="bottom-box">
-            <div class="pf-picture">
-                <img th:src="@{/images/space_man.png}" alt="Profile">
+            <div class="pf-picture"><img th:src="@{/images/space_man.png}" alt="Profile"></div>
+            <div class="pf-name">
+                Space Man
             </div>
-            <div class="pf-name">Space Man</div>
             <span class="lvl">Level - 01</span>
             <span class="pf-email">spaceman@gmail.com</span>
         </div>
     </div>
     <div id="overlay" class="overlay"></div>
-    <a th:href="@{/learning_zone}">
+    <a th:href="@{${'/learning-zone'}}">
         <div class="back-arr">
-            <img class="back-arrow" th:src="@{/icons/back-arrow.png}" alt="Back"> Back
+            <img class="back-arrow" src="/icons/back-arrow.png" alt="back"> Back
         </div>
     </a>
     <div class="search-box">
-        <div class="search-input">
-            <input type="text" placeholder="Search card...">
-        </div>
-        <a th:href="@{/search_card}">
-            <div class="search-icon">
-                <img th:src="@{/icons/search.png}" alt="Search">
+        <form th:action="@{/search-card}" method="get" class="search-form">
+            <div class="search-input">
+                <input type="text" id="search-input" name="keyword" placeholder="Search card..." autocomplete="off">
+                <div id="suggestions-box" class="suggestions-box"></div>
             </div>
-        </a>
+            <button type="submit" class="search-icon">
+                <img th:src="@{/icons/search.png}" alt="search">
+            </button>
+        </form>
     </div>
-    <a th:href="@{/card_collection}">
+    
+    <a th:href="@{'/collection'}">
         <div class="favorite">
             <span class="tooltip-collection">Card Collection</span>
-            <img class="fav-icon" th:src="@{/icons/star.png}" alt="Star">
+            <img class="fav-icon" src="/icons/star.png" alt="star">
         </div>
     </a>
     <div class="container">
         <div class="collection">
-            <div class="flashcard-set-box" >
-                <div class="set-title" data-topic-id="${topic.id}" th:each="topic : ${topics}">
-                    <div th:text="${topic.topicName}" data-topic-id="${topic.id}"></div>
+            <div class="flashcard-set-box">
+                <div class="set-title"
+                     th:each="topic : ${topics}"
+                     th:attr="data-topic-id=${topic.topicId}">
+                    <span th:text="${topic.topicName}">Topic Name</span>
                 </div>
-                
-            </div>            
+            </div>
             <div class="swiper mySwiper">
-                <div class="swiper-wrapper">
-
-
-                    <div class="swiper-slide" th:each="card : ${cards}">
-                        <div class="flashcard" onclick="flipCard(this)">
-                            <div class="flashcard-face front">
-                                <div class="content-pic">
-                                    <img class="pic" th:src="@{/images/car_card.png}" alt="Image">
-                                    <div class="star">
-                                        <img class="star-icon" th:src="@{/icons/star2.png}" alt="Star">
-                                        <img class="star-icon-color" th:src="@{/icons/star.png}" alt="Star">
-                                        <span class="tooltip">Add to Collection</span>
-                                    </div>
-                                </div>
-                                <div class="text-content">
-                                    <h3 th:text="${card.cardName}"></h3>
-                                    <p th:text="${card.definition}"></p>
-                                </div>
-                            </div>
-                            <div class="flashcard-face back">
-                                <div class="content-pic">
-                                    <img class="pic" th:src="@{/images/space_man.png}" alt="Image">
-                                    <div class="star">
-                                        <img class="star-icon" th:src="@{/icons/star2.png}" alt="Star">
-                                        <img class="star-icon-color" th:src="@{/icons/star.png}" alt="Star">
-                                        <span class="tooltip">Add to Collection</span>
-                                    </div>
-                                </div>
-                                <div class="text-content">
-                                    <h3 th:text="${card.cardName}"></h3>
-                                    <p th:text="${card.definition}"></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                <div class="swiper-wrapper" id="flashcards-container">
                 </div>
             </div>
             <div class="swiper-button-next"></div>
@@ -127,119 +99,78 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>
-        function flipCard(card) {
-            if (card.closest('.swiper-slide').classList.contains('swiper-slide-active')) {
-                card.classList.toggle('is-flipped');
-            }
-        }
+    <script src="/scripts/profileScript.js"></script>
+    <script src="/scripts/flashcardScript.js"></script>
 
-        var swiper = new Swiper(".mySwiper", {
-            effect: "coverflow",
-            grabCursor: true,
-            centeredSlides: true,
-            spaceBetween: 50,
-            slidesPerView: "auto",
-            coverflowEffect: {
-                rotate: 0,
-                stretch: 0,
-                depth: 60,
-                modifier: 3.5,
-                slideShadows: false,
-            },
-            pagination: {
-                el: ".swiper-pagination",
-                type: "fraction",
-            },
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
+    <script>
+        const searchInput = document.getElementById("search-input");
+        const suggestionsBox = document.getElementById("suggestions-box");
+
+        searchInput.addEventListener("input", () => {
+            const query = searchInput.value;
+            suggestionsBox.style.display = "block";
+
+            if (query.length < 2) {
+                suggestionsBox.innerHTML = ""; // Clear suggestions if input is too short
+                return;
+            }
+
+            fetch(`/suggest-keywords?prefix=${encodeURIComponent(query)}`)
+                .then(response => response.json())
+                .then(data => {
+                    suggestionsBox.innerHTML = data
+                        .map(keyword => `<div class="suggestion-item" onclick="selectSuggestion('${keyword}')">${keyword}</div>`)
+                        .join("");
+                })
+                .catch(error => console.error("Error fetching suggestions:", error));
+        });
+
+        document.getElementById("search-input").addEventListener("keydown", (event) => { 
+            if (event.key === "Enter") {
+                event.preventDefault(); // Prevent form submission
+                
+                const firstSuggestion = document.querySelector(".suggestion-item");
+                if (firstSuggestion) {
+                    searchInput.value = firstSuggestion.textContent; // Set input to the first suggestion
+                }
+                
+                document.querySelector("form.search-form").submit(); // Submit the form
+                
+                clearSearch(); // Clear input and suggestions after search
             }
         });
+
+        function selectSuggestion(keyword) {
+            searchInput.value = keyword; // Set input value to selected suggestion
+            suggestionsBox.innerHTML = ""; // Clear suggestions
+            document.querySelector("form.search-form").submit(); // Submit the form
+            
+            clearSearch(); // Clear input and suggestions after search
+        }
+
+        function clearSearch() {
+            searchInput.value = ""; // Clear the search input
+            suggestionsBox.innerHTML = ""; // Clear the suggestions box
+            suggestionsBox.style.display = "none"; // Hide the suggestions box
+        }
+
+        // Add an event listener to the search icon (submit button)
+        const searchButton = document.querySelector(".search-icon");
+        searchButton.addEventListener("click", (event) => {
+            event.preventDefault(); // Prevent the form from submitting immediately
+            
+            // You can check if the input has a value, if needed
+            if (searchInput.value.trim() !== "") {
+                document.querySelector("form.search-form").submit(); // Submit the form
+            }
+
+            clearSearch(); // Clear input and suggestions when search icon is clicked
+        });
+
     </script>
-        <script>
-            const profile = document.getElementById("profile");
-            const profileContainer = document.getElementById("profile-container");
-            const overlay = document.getElementById("overlay");
-            const body = document.body; 
-        
-            profile.addEventListener("click", () => {
-                profileContainer.classList.toggle("show");
-                overlay.style.display = profileContainer.classList.contains("show") ? "block" : "none";
-            });
-        
 
-            document.addEventListener("click", (event) => {
-                if (
-                    !profile.contains(event.target) &&
-                    !profileContainer.contains(event.target)
-                ) {
-                    profileContainer.classList.remove("show");
-                    overlay.style.display = "none";
-                }
-            });
 
-            const setTitles = document.querySelectorAll('.set-title');
-            const flashcardContainer = document.querySelector('.swiper-wrapper');
-        
-            setTitles.forEach(title => {
-                title.addEventListener('click', async () => {
-                    setTitles.forEach(t => t.classList.remove('selected'));
-                    title.classList.add('selected');
-        
-                    const topicId = title.getAttribute('data-topic-id');
-        
-                    try {
-
-                        const response = await axios.get(`/learning/cards/${topicId}`);
-                        const flashcards = response.data;
-                        flashcardContainer.innerHTML = '';        
-                        flashcards.forEach(card => {
-                            flashcardContainer.innerHTML += `
-                                <div class="swiper-slide">
-                                    <div class="flashcard" onclick="flipCard(this)">
-                                        <div class="flashcard-face front">
-                                            <div class="content-pic">
-                                                <img class="pic" src="/images/car_card.png" alt="Image">
-                                                <div class="star">
-                                                    <img class="star-icon" src="/icons/star2.png" alt="Star">
-                                                    <img class="star-icon-color" src="/icons/star.png" alt="Star">
-                                                    <span class="tooltip">Add to Collection</span>
-                                                </div>
-                                            </div>
-                                            <div class="text-content">
-                                                <h3>${card.cardName}</h3>
-                                                <p>${card.definition}</p>
-                                            </div>
-                                        </div>
-                                        <div class="flashcard-face back">
-                                            <div class="content-pic">
-                                                <img class="pic" src="/images/space_man.png" alt="Image">
-                                                <div class="star">
-                                                    <img class="star-icon" src="/icons/star2.png" alt="Star">
-                                                    <img class="star-icon-color" src="/icons/star.png" alt="Star">
-                                                    <span class="tooltip">Add to Collection</span>
-                                                </div>
-                                            </div>
-                                            <div class="text-content">
-                                                <h3>${card.cardName}</h3>
-                                                <p>${card.definition}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            `;
-                        });
-        
-                        swiper.update();
-                    } catch (error) {
-                        console.error('Error fetching flashcards:', error);
-                    }
-                });
-            });
-
-        </script>
 </body>
+
 
 </html>

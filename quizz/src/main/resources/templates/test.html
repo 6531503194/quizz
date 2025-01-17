@@ -1,0 +1,27 @@
+<html>
+<head></head>
+<body>
+    <div class="set-title" th:each="topic : ${topics}">
+        <div class="name" th:text="${topic.topicName}" th:data-topic-id="${topic.topicId}"></div>                    
+    </div>
+    
+    
+    <script>
+        const setTitles = document.querySelectorAll('.name');  // Selecting the .name divs directly
+
+        setTitles.forEach(title => {
+            title.addEventListener('click', () => {
+                setTitles.forEach(t => t.classList.remove('selected'));
+                title.classList.add('selected');
+                console.log("This is the title selected =>", title);
+        
+                // Getting the topicId from the 'data-topic-id' attribute
+                const topicId = title.getAttribute('data-topic-id');
+                console.log("This is the topicId =>", topicId);  // Should now log the correct topic ID
+            });
+        });
+        
+    </script>
+    
+</body>
+</html>

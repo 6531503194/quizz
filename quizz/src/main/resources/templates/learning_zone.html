@@ -59,16 +59,13 @@
         <div class="phase-div swiper mySwiper">
             <div class="swiper-wrapper">
                 <div class="swiper-slide" th:each="phase : ${phases}">
-                    <a th:href="@{'/learning/' + ${phase.phaseId}}" id="phase-link">
+                    <a th:href="@{'/learning/' + ${phase.phaseId}} + '/cards'" id="phase-link">
                         <div class="phase-1">
                             <div class="pic-box">
-                                <img th:src="@{/images/space_man.png}" alt="Initiation">
+                                <img th:src="@{'/images/' + ${phase.phaseImg}}" alt="Initiation">
                             </div>
-                            <span class="phase-name" th:text="${phase.phaseName}">Initiation</span>
+                            <span class="phase-name" th:text="${phase.phaseName}"></span>
                             <span class="phase-desc" th:text="${phase.description}">
-                                Set the foundation for project success by defining objectives, 
-                                identifying key stakeholders, and developing a project charter 
-                                to authorize the project.
                             </span>
                         </div>
                     </a>

@@ -23,6 +23,7 @@ public class Phase {
     private int phaseId;
     private String phaseName;
     private String description;
+    private String phaseImg;
     
     @OneToMany(mappedBy = "phase", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Topic> topics;
