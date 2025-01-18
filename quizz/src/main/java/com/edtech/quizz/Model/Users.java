@@ -25,6 +25,7 @@ public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int userId;
+    private String username;
     private String email;
     private String password;
     private int level;
