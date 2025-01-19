@@ -31,7 +31,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         
         http.csrf(customizer -> customizer.disable())
-            .authorizeHttpRequests( request -> request.anyRequest().authenticated())
+            .authorizeHttpRequests( request -> request
+                                        .requestMatchers("/register","/login").permitAll()
+                                        .anyRequest().authenticated())
         //    .formLogin(Customizer.withDefaults());
             .httpBasic(Customizer.withDefaults())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
@@ -39,24 +41,6 @@ public class SecurityConfig {
 
         return http.build();
     }
-
-    // @Bean
-    // public UserDetailsService userDetailsService(){
-        
-    //     UserDetails user1 = User
-    //                         .withDefaultPasswordEncoder()
-    //                         .username("test")
-    //                         .password("123")
-    //                         .build();
-
-    //     UserDetails user2 = User
-    //                         .withDefaultPasswordEncoder()
-    //                         .username("hi")
-    //                         .password("hello")
-    //                         .build();
-
-    //     return new InMemoryUserDetailsManager(user1,user2);
-    // }
 
     @Bean
     public AuthenticationProvider authenticationProvider(){
@@ -66,7 +50,10 @@ public class SecurityConfig {
         return provider;
     }
 
-
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception{
+        return config.getAuthenticationManager();
+    }
 
 
 

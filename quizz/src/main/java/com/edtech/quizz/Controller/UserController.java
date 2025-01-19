@@ -29,12 +29,11 @@ public class UserController {
         return service.getallUsers();
     }
 
+    @PostMapping("/login")
+    public String login(@RequestBody Users user){
+        
+        return service.verify(user);
+    }
+
+
 }
-/*
- * id
- * scoreH
- * lev
- * qset
- * Xp
- * name
- */
